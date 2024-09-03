@@ -64,9 +64,25 @@ class AddressBook {
 public class TestAddressBook {
 
     public static void main(String[] args) {
+        AddressBook myAddressBook = new AddressBook();
         while (true) {
-            // string input
+            String input = JOptionPane.showInputDialog("1: Add \n 2: Search \n 3: Delete \n 4:Exit");
+            char ch = input.charAt(0);
+            switch (ch) {
+                case '1':
+                    myAddressBook.addPerson();
+                    break;
+                case '2':
+                    String nameToSearch = JOptionPane.showInputDialog(null, "Enter name to search");
+                    myAddressBook.searchPerson(nameToSearch);
+                    break;
+                case '3':
+                    String nameToDelete = JOptionPane.showInputDialog(null, "Enter name to delete the person data");
+                    myAddressBook.deletePerson(nameToDelete);
+                    break;
+                case '4':
+                    System.exit(0);
+            }
         }
     }
-}
 }
