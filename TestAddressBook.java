@@ -1,4 +1,7 @@
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -57,6 +60,27 @@ class AddressBook {
     }
 
     public void exitApp() {
+        System.out.println("Saving data before close...");
+        FileWriter fw = null;
+        PrintWriter pw = null;
+
+        try {
+            fw = new FileWriter("output.txt");
+            pw = new PrintWriter(fw);
+            for (int i = 0; i < persons.size(); i++) {
+                pw.print(persons.get(i).name + " ");
+                pw.print(persons.get(i).address + " ");
+                pw.print(persons.get(i).phoneNum + " ");
+                pw.println();
+            }
+            pw.flush();
+            pw.close();
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Exception occurred");
+        }
+
+        System.exit(0);
     }
 }
 
@@ -80,7 +104,9 @@ public class TestAddressBook {
                     myAddressBook.deletePerson(nameToDelete);
                     break;
                 case '4':
-                    System.exit(0);
+                    myAddressBook.exitApp();
+                    break;
+
             }
         }
     }
