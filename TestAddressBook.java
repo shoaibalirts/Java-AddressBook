@@ -21,10 +21,10 @@ class PersonInfo {
 
 class AddressBook {
 
-    ArrayList persons;
+    ArrayList<PersonInfo> persons;
 
     public AddressBook() {
-        persons = new ArrayList(); // persons is an array persons[]
+        persons = new ArrayList<PersonInfo>(); // persons is an array persons[]
     }
 
     public void addPerson() {
@@ -49,10 +49,9 @@ class AddressBook {
 
     public void deletePerson(String n) {
         for (int i = 0; i < persons.size(); i++) {
-            PersonInfo p = (PersonInfo) persons.get(i);
+            PersonInfo p = (PersonInfo) persons.get(i); // downcasting
             if (p.name.equals(n)) {
                 persons.remove(i);
-                return;
             }
         }
     }
