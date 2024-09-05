@@ -1,4 +1,6 @@
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -28,6 +30,32 @@ class AddressBook {
 
     public AddressBook() {
         persons = new ArrayList<PersonInfo>(); // persons is an array persons[]
+        FileReader fr = null;
+        BufferedReader br = null;
+
+        String tokens[] = null;
+        String name, add, ph;
+
+        try {
+            fr = new FileReader("output.txt");
+            br = new BufferedReader(fr);
+
+            String s = br.readLine();
+            while (s != null) {
+                tokens = s.split(",");
+                name = tokens[0];
+                add = tokens[1];
+                ph = tokens[2];
+                PersonInfo p = new PersonInfo(name, add, ph);
+                persons.add(p);
+                s = br.readLine();
+
+            }
+            br.close();
+            fr.close();
+
+        } catch (Exception ex) {
+        }
     }
 
     public void addPerson() {
@@ -68,9 +96,9 @@ class AddressBook {
             fw = new FileWriter("output.txt");
             pw = new PrintWriter(fw);
             for (int i = 0; i < persons.size(); i++) {
-                pw.print(persons.get(i).name + " ");
-                pw.print(persons.get(i).address + " ");
-                pw.print(persons.get(i).phoneNum + " ");
+                pw.print(persons.get(i).name + ",");
+                pw.print(persons.get(i).address + ",");
+                pw.print(persons.get(i).phoneNum + "");
                 pw.println();
             }
             pw.flush();
@@ -87,6 +115,7 @@ class AddressBook {
 public class TestAddressBook {
 
     public static void main(String[] args) {
+
         AddressBook myAddressBook = new AddressBook();
         while (true) {
             String input = JOptionPane.showInputDialog("1: Add \n 2: Search \n 3: Delete \n 4:Exit");
